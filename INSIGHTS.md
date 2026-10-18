@@ -64,14 +64,14 @@ Complete this section using the actual results produced by your SQL queries.
 
 | Metric | Actual Result |
 |---|---|
-| Total orders analyzed | [99441] |
-| Total order-item revenue | [13591643.7] |
-| Average order value | [137.75] |
-| Top-performing product category | [health_beauty] |
-| Most-used payment method | [credit_card] |
-| Average delivery duration | [12.56] |
-| Late-delivery percentage | [8.11] |
-| Average review score | [4.09] |
+| Total orders analyzed | 99441 |
+| Total order-item revenue | 13591643.7 |
+| Average order value | 137.75 |
+| Top-performing product category | health_beauty |
+| Most-used payment method | credit_card |
+| Average delivery duration | 12.56 |
+| Late-delivery percentage | 8.11 |
+| Average review score | 4.09 |
 
 **Important:** Define each metric consistently. For example, item revenue should be calculated from order-item prices, and average order value should use a clearly defined order-level denominator.
 
