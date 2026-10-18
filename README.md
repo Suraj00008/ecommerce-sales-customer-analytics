@@ -1,168 +1,161 @@
 # 🛒 E-Commerce Sales & Customer Analytics Using SQL
 
+A SQL portfolio project analyzing the **Olist Brazilian E-Commerce Public Dataset** to investigate sales performance, product categories, customer purchasing behavior, payment methods, delivery efficiency, and customer satisfaction using **SQL, SQLite, and DB Browser for SQLite**.
+
+[View Repository](https://github.com/Suraj00008/ecommerce-sales-customer-analytics) · [Business Insights](INSIGHTS.md) · [SQL Scripts](sql/)
+
+---
+
 ## 📌 Project Overview
 
-This project focuses on analyzing e-commerce transactions using **SQL and SQLite** to uncover insights into sales performance, customer purchasing behavior, product categories, seller performance, delivery efficiency, and customer satisfaction.
+E-commerce businesses generate large amounts of transactional data, but raw records alone do not explain how a business is performing. This project uses SQL to transform relational data into meaningful metrics and business insights.
 
-Using the **Olist Brazilian E-Commerce Public Dataset**, I performed data validation, exploratory analysis, multi-table joins, advanced SQL analysis, and business-focused KPI calculations to demonstrate how SQL can transform raw transactional data into meaningful business insights.
+I completed seven stages of analysis, progressing from database validation and data-quality checks to multi-table joins, advanced SQL techniques, KPI calculations, and business recommendations.
 
-The project follows an end-to-end analytical workflow, from database validation to business recommendations.
+**Project highlights**
+
+- Validated nine relational database tables containing approximately 2.5 million rows.
+- Analyzed sales revenue, monthly trends, product categories, and seller performance.
+- Investigated customer purchasing patterns, delivery performance, and review scores.
+- Applied joins, subqueries, CTEs, window functions, ranking, and date calculations.
+- Documented quantitative findings, limitations, and business recommendations.
+
+## 📊 Key Findings
+
+The following results are documented in the project's SQL analysis and `INSIGHTS.md`.
+
+| Metric | Result |
+|---|---:|
+| Total orders in the dataset | 99,441 |
+| Total order-item revenue | 13,591,643.70 |
+| Average order value | 137.75 |
+| Top product category by item revenue | `health_beauty` |
+| Most frequently recorded payment method | Credit card |
+| Average delivery duration | 12.56 days |
+| Late-delivery rate | 8.11% |
+| Average customer review score | 4.09 / 5 |
+
+**How to interpret these metrics**
+
+- **Item revenue:** Sum of product prices in the order-items table; it is not profit and excludes freight from this metric.
+- **Average order value:** Average item-price revenue per order represented in the order-items table. Its denominator differs from the total number of orders if some orders have no corresponding items.
+- **Top category:** `health_beauty` is the category label returned by the current analysis.
+- **Most-used payment method:** Credit card is the most frequent payment type in the payment records.
+- **Late-delivery rate:** Percentage of delivered orders with both actual and estimated delivery timestamps where the actual delivery date was later than the estimated date.
+
+For methodology, further results, and analytical limitations, see [INSIGHTS.md](INSIGHTS.md).
 
 ## 🎯 Business Objectives
 
-- Analyze overall sales performance and monthly revenue trends.
-- Identify top-performing product categories and sellers.
-- Understand customer purchasing patterns and repeat purchases.
-- Evaluate order delivery times and late-delivery rates.
-- Analyze customer review scores and satisfaction.
-- Examine payment methods and payment-value contribution.
-- Identify business improvement opportunities using data-driven analysis.
+The project investigates the following business questions:
+
+1. How does item revenue change over time?
+2. Which product categories and sellers generate the highest item revenue?
+3. How common are repeat purchases among customers?
+4. How long does delivery take on average?
+5. What proportion of delivered orders arrive later than estimated?
+6. How are customer review scores distributed?
+7. Are delivery delays associated with lower review scores?
+8. Which payment methods are most frequently used and contribute the most payment value?
+9. How concentrated is item revenue among sellers?
+10. Which product categories or delivery patterns may warrant further investigation?
 
 ## 🗂️ Dataset
 
-**Dataset:** Olist Brazilian E-Commerce Public Dataset
+**Source:** [Olist Brazilian E-Commerce Public Dataset — Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-**Source:** [Kaggle — Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+The dataset contains anonymized transactional and operational information from a Brazilian e-commerce marketplace.
 
-The dataset contains anonymized e-commerce order information from a Brazilian marketplace, including customers, orders, payments, products, sellers, and reviews.
+### Database tables
 
-### Database Tables
+| Table | Purpose | Rows |
+|---|---|---:|
+| `olist_orders_dataset` | Order status and timestamps | 99,441 |
+| `olist_customers_dataset` | Customer identifiers and locations | 99,441 |
+| `olist_order_items_dataset` | Products, sellers, prices, and freight | 112,650 |
+| `olist_order_payments_dataset` | Payment types and payment values | 103,886 |
+| `olist_order_reviews_dataset` | Customer review scores and comments | 99,224 |
+| `olist_products_dataset` | Product categories and attributes | 32,951 |
+| `olist_sellers_dataset` | Seller identifiers and locations | 3,095 |
+| `olist_geolocation_dataset` | Geographic coordinates and location data | 1,000,163 |
+| `product_category_name_translation` | Category-name translations | 71 |
 
-The project uses the following nine tables:
+*Row counts reflect the imported tables validated during the project.*
 
-| Table | Purpose |
-|---|---|
-| `olist_customers_dataset` | Customer identifiers and location details |
-| `olist_orders_dataset` | Order status and purchase, delivery, and estimated-delivery timestamps |
-| `olist_order_items_dataset` | Products purchased, sellers, item prices, and freight values |
-| `olist_order_payments_dataset` | Payment methods, installments, and payment values |
-| `olist_order_reviews_dataset` | Review scores, comments, and timestamps |
-| `olist_products_dataset` | Product identifiers, categories, and product attributes |
-| `olist_sellers_dataset` | Seller identifiers and locations |
-| `olist_geolocation_dataset` | Geographic coordinates and location information |
-| `product_category_name_translation` | Original product category names and English translations |
+## 🛠️ Tools and Technologies
 
-### Dataset Size
+- **SQL:** Data querying, aggregation, joins, KPI calculations, and analysis
+- **SQLite:** Relational database engine
+- **DB Browser for SQLite:** Database inspection and SQL execution
+- **Git and GitHub:** Version control and project documentation
 
-The imported dataset contains approximately **2.5 million rows across nine tables**.
+## 🔍 Analysis Workflow
 
-| Table | Rows |
-|---|---:|
-| Customers | 99,441 |
-| Orders | 99,441 |
-| Order Items | 112,650 |
-| Payments | 103,886 |
-| Reviews | 99,224 |
-| Products | 32,951 |
-| Sellers | 3,095 |
-| Geolocation | 1,000,163 |
-| Category Translation | 71 |
+### Part 1 — Database Validation
+- Inspected table structures and verified row counts.
+- Checked identifiers and important data fields.
+- Reviewed order statuses and missing values.
 
-*Row counts reflect the imported tables used during database validation.*
-
-## 🛠️ Tools & Technologies
-
-- **SQL** — Data querying, transformation, aggregation, and analysis
-- **SQLite** — Relational database engine
-- **DB Browser for SQLite** — Database exploration and query execution
-- **GitHub** — Source-code management and project portfolio
-
-## 📊 Project Workflow
-
-### Part 1 — Database Setup & Validation
-- Verified database tables and schemas.
-- Checked table row counts and key identifiers.
-- Reviewed order statuses and missing values in important fields.
-
-### Part 2 — Data Exploration & Quality
+### Part 2 — Data Exploration and Quality
 - Investigated missing values and duplicate identifiers.
-- Validated relationships between orders, customers, products, sellers, payments, and reviews.
-- Checked timestamp consistency, review scores, payment values, and category translation coverage.
+- Checked relationships between tables and timestamp consistency.
+- Examined payment values, review scores, and category-translation coverage.
 
 ### Part 3 — Sales Performance Analysis
-- Analyzed the dataset's date range and order status distribution.
+- Analyzed order status and the available date range.
 - Calculated item revenue, freight value, and average order value.
-- Examined monthly revenue trends, month-over-month growth, and cumulative revenue.
-- Compared order-item values with recorded payment totals.
+- Examined monthly revenue, month-over-month changes, and cumulative revenue.
+- Compared item-price totals with recorded payment values.
 
-### Part 4 — Joins, Product & Seller Analysis
-- Practiced INNER JOIN and LEFT JOIN operations.
-- Analyzed revenue by product category.
-- Identified leading products and sellers by item revenue.
-- Investigated untranslated categories and checked for join-related row duplication.
+### Part 4 — Product and Seller Analysis
+- Joined product, order-item, and seller tables.
+- Ranked categories, products, and sellers by item revenue.
+- Examined untranslated categories and possible join-related duplication.
 
-### Part 5 — Customer, Delivery & Review Analysis
-- Examined customer distribution by state.
-- Analyzed repeat purchasing behavior.
-- Calculated average delivery duration and late-delivery rates.
-- Compared delivery performance with review scores.
-- Investigated review response times.
+### Part 5 — Customer, Delivery, and Review Analysis
+- Examined customer distribution across states.
+- Investigated repeat purchasing patterns.
+- Calculated delivery duration and late-delivery rates.
+- Compared delivery outcomes with review scores.
 
 ### Part 6 — Advanced SQL Analysis
-- Applied CTEs and window functions.
-- Used RANK, DENSE_RANK, LAG, and cumulative SUM calculations.
-- Created customer and order-value segments.
-- Analyzed repeat-purchase intervals, payment methods, customer lifetime item revenue, and seller revenue contribution.
+- Applied Common Table Expressions (CTEs) and subqueries.
+- Used `RANK()`, `DENSE_RANK()`, `ROW_NUMBER()`, and `LAG()`.
+- Calculated running totals and other window-based metrics.
+- Examined customer segments, payment patterns, and seller revenue contribution.
 
-### Part 7 — Business Insights & Recommendations
-- Developed executive-level KPI summaries.
-- Evaluated cancellation rates, category revenue contribution, and delivery delays.
-- Examined customer satisfaction and category-associated review scores.
-- Analyzed freight relative to item revenue and seller revenue concentration.
-- Created rule-based recommendations to support business decision-making.
+### Part 7 — Business Insights and Recommendations
+- Developed business-focused KPI summaries.
+- Investigated cancellation rates, category performance, and delivery delays.
+- Examined customer satisfaction and freight relative to item revenue.
+- Converted analytical results into recommendations for further investigation.
 
-## 🧠 SQL Skills Demonstrated
+## 💻 SQL Skills Demonstrated
 
-- SELECT, WHERE, ORDER BY, GROUP BY, and HAVING
-- Aggregate functions: COUNT, SUM, AVG, MIN, and MAX
-- CASE expressions and conditional aggregation
-- INNER JOIN, LEFT JOIN, and multi-table joins
-- Common Table Expressions (CTEs)
-- Subqueries and NULL handling
-- Date and timestamp calculations using SQLite functions
-- Window functions: RANK, DENSE_RANK, ROW_NUMBER, LAG, and SUM OVER
-- Running totals, moving averages, and revenue contribution analysis
-- Customer segmentation and KPI calculations
-- Data quality validation and join-inflation checks
+| Skill | Application |
+|---|---|
+| Filtering and sorting | `WHERE`, `ORDER BY` |
+| Aggregation | `GROUP BY`, `HAVING`, `SUM()`, `AVG()`, `COUNT()` |
+| Conditional analysis | `CASE WHEN` |
+| Relational analysis | `INNER JOIN`, `LEFT JOIN`, multi-table joins |
+| Query organization | CTEs and subqueries |
+| Data quality | NULL handling, duplicate checks, join validation |
+| Advanced analytics | Window functions, ranking, `LAG()` |
+| Time-based analysis | Date differences, monthly trends, growth calculations |
+| Business reporting | Revenue analysis, delivery KPIs, customer metrics |
 
-## 💡 Business Questions Explored
+## 💡 Business Recommendations
 
-1. How does sales revenue change over time?
-2. Which product categories and sellers generate the highest item revenue?
-3. How many customers make repeat purchases?
-4. How long do customers wait for their orders?
-5. What proportion of delivered orders arrive after the estimated date?
-6. How are review scores distributed?
-7. Are late deliveries associated with lower average review scores?
-8. Which payment methods contribute the most recorded payment value?
-9. How concentrated is revenue among the leading sellers?
-10. Which categories may warrant further investigation based on sales and associated review scores?
+Based on the areas investigated in this project, the analysis can support the following actions:
 
-## 📈 Key Findings
+1. **Improve delivery reliability:** Investigate the sellers, locations, and operational processes associated with late deliveries.
+2. **Improve customer experience:** Examine low review scores alongside delivery outcomes to identify potential service issues.
+3. **Support product planning:** Use category-level revenue trends to inform inventory and promotional decisions, while considering costs before making profitability claims.
+4. **Strengthen customer retention:** Use purchasing-frequency analysis to identify opportunities to encourage repeat purchases.
+5. **Monitor seller concentration:** Track the contribution of leading sellers and assess operational dependence on a small group of suppliers.
+6. **Review shipping efficiency:** Compare freight charges with item revenue while accounting for order size and other relevant factors.
 
-The project includes SQL queries designed to answer the business questions above. The specific numerical findings should be added after reviewing the query outputs.
-
-Recommended findings to document:
-
-- **Sales performance:** Monthly revenue trends and the strongest sales periods.
-- **Product performance:** Leading product categories and their revenue contribution.
-- **Customer behavior:** The proportion of one-time and repeat customers.
-- **Delivery performance:** The late-delivery rate and states requiring further investigation.
-- **Customer satisfaction:** The distribution of review scores and differences between on-time and late deliveries.
-
-Each finding should include a supporting metric and a brief explanation of its business significance.
-
-## 🚀 Business Recommendations
-
-Potential actions to evaluate using the actual results include:
-
-- Investigate operational issues in regions with higher late-delivery rates.
-- Examine low-rated category-associated reviews to identify potential customer-experience issues.
-- Explore retention strategies based on observed repeat-purchase patterns.
-- Support high-performing categories while monitoring seller revenue concentration.
-- Review freight-to-item-value ratios when evaluating shipping efficiency.
-
-These recommendations should be prioritized according to the evidence produced by the analysis.
+These are analytical recommendations, not proof of causal relationships. The detailed findings and limitations are documented in [INSIGHTS.md](INSIGHTS.md).
 
 ## 📁 Repository Structure
 
@@ -187,37 +180,48 @@ ecommerce-sales-customer-analytics/
 │   ├── P6_*.png
 │   └── P7_*.png
 │
+├── INSIGHTS.md
 ├── README.md
 └── .gitignore
 ```
 
-The SQL scripts contain the analysis queries, while the screenshots provide evidence of the query outputs.
+The SQL scripts contain the queries for each stage. The screenshots provide supporting evidence of query execution and results.
 
 ## ▶️ How to Run the Project
 
-1. Download the dataset from the [Kaggle dataset page](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
-2. Import the required CSV files into DB Browser for SQLite.
-3. Confirm that the imported tables use the names expected by the SQL scripts.
-4. Open the scripts in the `sql/` directory.
-5. Execute the queries in sequence, beginning with database validation.
-6. Review the results and compare them with the saved screenshots.
+1. Download the dataset from the [Kaggle source page](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
+2. Extract the relevant CSV files.
+3. Open DB Browser for SQLite and create or open your project database.
+4. Import the CSV files as tables, preserving the expected table names.
+5. Open the scripts in the `sql/` directory.
+6. Execute the scripts in numerical order, starting with database validation.
+7. Review the query outputs and compare them with the saved screenshots.
+8. Read [INSIGHTS.md](INSIGHTS.md) for the quantitative summary and recommendations.
 
-## ⚠️ Analytical Considerations
+**Note:** The source CSV files and local SQLite database do not need to be committed to GitHub for someone to review your SQL code. Users should import the dataset locally before running the queries.
 
-- Item revenue is calculated using product prices and does not represent profit.
-- Freight value is analyzed separately from item revenue.
-- Customer records and unique customers are different measures.
-- Review scores belong to orders; when linked to multiple items, a review may be associated with multiple product categories.
-- Historical patterns describe the available dataset and do not guarantee future performance.
-- Data-quality limitations and missing timestamps can affect individual metrics.
+## ⚠️ Analytical Considerations and Limitations
 
-## 👨‍💻 Author
+- Item-price revenue is not equivalent to profit because the dataset does not provide all costs and expenses.
+- Freight is analyzed separately from item-price revenue.
+- The total number of orders is not necessarily the denominator for every order-level metric.
+- Customer records and unique customers represent different measures.
+- Review scores are associated with orders. Joining a review to multiple order items can associate the same score with multiple categories.
+- Missing timestamps can affect delivery calculations.
+- The analysis is descriptive; observed associations do not establish causation or guarantee future outcomes.
+- The dataset represents historical Brazilian marketplace activity and should not be interpreted as a complete picture of the current e-commerce market.
 
-SURAJ YADAV
+## 👨‍💻 About Me
 
+**Suraj Yadav**  
 Aspiring Data Analyst | SQL | Python | Excel | Power BI
 
-GitHub: https://github.com/Suraj00008
+I am building practical data analytics projects to strengthen my SQL, data exploration, business analysis, and reporting skills.
+
+**GitHub:** [Suraj00008](https://github.com/Suraj00008)
+
 ---
 
-*This project was developed as a hands-on SQL analytics portfolio project to practice relational database querying, data analysis, and business insight generation.*
+*Project type: Data Analytics Portfolio Project*  
+*Dataset: Olist Brazilian E-Commerce Public Dataset*  
+*Tools: SQL · SQLite · DB Browser for SQLite*
